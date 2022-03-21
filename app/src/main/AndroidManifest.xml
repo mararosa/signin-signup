@@ -13,7 +13,8 @@
         android:theme="@style/Theme.Signupsignin">
         <activity
             android:name="com.estudos.signupsignin.signin.view.SignInActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Signupsignin.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
