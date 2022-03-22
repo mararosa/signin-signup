@@ -25,11 +25,11 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/edt_email"
+                    android:id="@+id/input_email"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginStart="16dp"
@@ -37,17 +37,18 @@
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/bg_edittext_default"
                     android:hint="E-mail ID"
-                    android:imeOptions="actionDone"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
-                    app:layout_constraintBottom_toTopOf="@id/edt_password"
+                    app:layout_constraintBottom_toTopOf="@id/input_password"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <EditText
-                    android:id="@+id/edt_password"
+                    android:id="@+id/input_password"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginStart="16dp"
@@ -61,12 +62,12 @@
                     android:paddingEnd="16dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
-                    app:layout_constraintBottom_toTopOf="@id/btn_sign_in"
+                    app:layout_constraintBottom_toTopOf="@id/signin_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <Button
-                    android:id="@+id/btn_sign_in"
+                    android:id="@+id/signin_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -78,13 +79,14 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/txt_signup"
+                    android:enabled="false"
+                    app:layout_constraintBottom_toTopOf="@id/signup_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
 
                 <TextView
-                    android:id="@+id/txt_signup"
+                    android:id="@+id/signup_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="36dp"
