@@ -1,11 +1,20 @@
 package com.estudos.signupsignin.signin.viewmodel
 
+import SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SignInViewModel: ViewModel() {
+class SignInViewModel : ViewModel() {
 
-    val voLiveData = MutableLiveData<SignInVO>()
     val viewStateLiveData = MutableLiveData<SignInViewState>()
-//    val commandLiveData = SingleLiveEvent<SignInCommand>()
+    val commandLiveData = SingleLiveEvent<SignInCommand>()
+
+    fun verifyEmail(isValidEmail: Boolean) {
+        if (isValidEmail) {
+            commandLiveData.value = SignInCommand.EnableLoginButton
+        } else {
+            commandLiveData.value =
+                SignInCommand.SendInvalidEmailMessage(errorMessage = "Invalid E-mail")
+        }
+    }
 }
