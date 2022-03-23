@@ -30,4 +30,8 @@ class SignInViewModel : ViewModel() {
         verifyPassword(userInputtedPassword)
         if (isValidEmail && isValidPassword) commandLiveData.value = SignInCommand.EnableLoginButton
     }
+
+    fun onSignUpclick() {
+        commandLiveData.value = SignInCommand.OpenSignUpScreen
+    }
 }
