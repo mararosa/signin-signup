@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import com.estudos.signupsignin.databinding.ActivitySignInBinding
 import com.estudos.signupsignin.signin.viewmodel.SignInCommand
 import com.estudos.signupsignin.signin.viewmodel.SignInViewModel
+import com.estudos.signupsignin.util.GenericTextWatcher
 
 class SignInActivity : AppCompatActivity() {
 
@@ -19,7 +20,7 @@ class SignInActivity : AppCompatActivity() {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        setupview()
+        setupInputValues()
         watchEvents()
     }
 
@@ -37,20 +38,26 @@ class SignInActivity : AppCompatActivity() {
         binding.inputEmail.error = errorMessage
     }
 
-    private fun setupview() {
-        binding.inputEmail.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+    private fun setupInputValues() {
+        binding.inputEmail.addTextChangedListener(textWatcher)
+        binding.inputEmail.addTextChangedListener(textWatcher)
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                val userEmail =
-                    android.util.Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString())
-                        .matches()
-                viewModel.verifyEmail(userEmail)
-            }
-        })
     }
+
+    val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun afterTextChanged(p0: Editable?) {
+            val userEmail =
+                android.util.Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString())
+                    .matches()
+            viewModel.verifyInputValues(
+                isValidInputtedEmail = userEmail,
+                userInputtedPassword = binding.inputPassword.text.toString()
+            )
+        }
+    }
+
 }
