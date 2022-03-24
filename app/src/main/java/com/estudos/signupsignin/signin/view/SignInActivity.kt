@@ -31,7 +31,8 @@ class SignInActivity : AppCompatActivity() {
     private fun watchEvents() {
         viewModel.commandLiveData.observe(this, Observer { command ->
             when (command) {
-                is SignInCommand.EnableLoginButton -> binding.signinButton.isEnabled = true
+                is SignInCommand.ChangeButtonState -> binding.signinButton.isEnabled =
+                    command.values
                 is SignInCommand.SendInvalidEmailMessage -> sendErrorMessage(command.errorMessage)
                 is SignInCommand.OpenSignUpScreen -> startActivity(SignUpActivity.intent(this))
             }
@@ -45,7 +46,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun setupInputValues() {
         binding.inputEmail.addTextChangedListener(textWatcher)
-        binding.inputEmail.addTextChangedListener(textWatcher)
+        binding.inputPassword.addTextChangedListener(textWatcher)
     }
 
     private fun setupClickListeners() {
@@ -57,7 +58,9 @@ class SignInActivity : AppCompatActivity() {
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
+        //mudanca foi feita e carater ja foi alterado
         override fun afterTextChanged(p0: Editable?) {
+            //mesma coisa aqui recebe um editable
             val userEmail =
                 android.util.Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString())
                     .matches()

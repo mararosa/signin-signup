@@ -17,18 +17,19 @@ class SignInViewModel : ViewModel() {
             isValidEmail = true
         } else {
             commandLiveData.value =
-                SignInCommand.SendInvalidEmailMessage(errorMessage = "Invalid E-mail")
+                SignInCommand.SendInvalidEmailMessage(errorMessage = "Invalid e-mail")
+            isValidEmail = false
         }
     }
 
     fun verifyPassword(userInputtedPassword: String) {
-        if (userInputtedPassword.length >= 8) isValidPassword = true
+        isValidPassword = userInputtedPassword.length >= 8
     }
 
     fun verifyInputValues(isValidInputtedEmail: Boolean, userInputtedPassword: String) {
         verifyEmail(isValidInputtedEmail)
         verifyPassword(userInputtedPassword)
-        if (isValidEmail && isValidPassword) commandLiveData.value = SignInCommand.EnableLoginButton
+        commandLiveData.value = SignInCommand.ChangeButtonState(isValidEmail && isValidPassword)
     }
 
     fun onSignUpclick() {
