@@ -11,7 +11,6 @@ import com.estudos.signupsignin.databinding.ActivitySignInBinding
 import com.estudos.signupsignin.signin.viewmodel.SignInCommand
 import com.estudos.signupsignin.signin.viewmodel.SignInViewModel
 import com.estudos.signupsignin.signup.view.SignUpActivity
-import com.estudos.signupsignin.util.GenericTextWatcher
 
 class SignInActivity : AppCompatActivity() {
 
@@ -50,7 +49,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        binding.signupButton.setOnClickListener { viewModel.onSignUpclick() }
+        binding.signupButton.setOnClickListener { viewModel.onSignUpClick() }
     }
 
     val textWatcher = object : TextWatcher {
@@ -58,9 +57,7 @@ class SignInActivity : AppCompatActivity() {
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-        //mudanca foi feita e carater ja foi alterado
         override fun afterTextChanged(p0: Editable?) {
-            //mesma coisa aqui recebe um editable
             val userEmail =
                 android.util.Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString())
                     .matches()

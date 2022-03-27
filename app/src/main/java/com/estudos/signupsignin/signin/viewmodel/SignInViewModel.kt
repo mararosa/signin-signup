@@ -3,6 +3,7 @@ package com.estudos.signupsignin.signin.viewmodel
 import SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.estudos.signupsignin.R
 
 class SignInViewModel : ViewModel() {
 
@@ -17,13 +18,13 @@ class SignInViewModel : ViewModel() {
             isValidEmail = true
         } else {
             commandLiveData.value =
-                SignInCommand.SendInvalidEmailMessage(errorMessage = "Invalid e-mail")
+                SignInCommand.SendInvalidEmailMessage(errorMessage = R.string.sign_in_email_error)
             isValidEmail = false
         }
     }
 
     fun verifyPassword(userInputtedPassword: String) {
-        isValidPassword = userInputtedPassword.length >= 8
+        isValidPassword = userInputtedPassword.length >= MINIMUM_PASSOWORD_LENGTH
     }
 
     fun verifyInputValues(isValidInputtedEmail: Boolean, userInputtedPassword: String) {
@@ -32,7 +33,11 @@ class SignInViewModel : ViewModel() {
         commandLiveData.value = SignInCommand.ChangeButtonState(isValidEmail && isValidPassword)
     }
 
-    fun onSignUpclick() {
+    fun onSignUpClick() {
         commandLiveData.value = SignInCommand.OpenSignUpScreen
+    }
+
+    private companion object {
+        private const val  MINIMUM_PASSOWORD_LENGTH = 8
     }
 }
