@@ -1,8 +1,10 @@
 package com.estudos.signupsignin.signin.viewmodel
 
+import androidx.annotation.StringRes
+
 sealed class SignInCommand {
 
     data class ChangeButtonState(val values: Boolean) : SignInCommand()
     object OpenSignUpScreen : SignInCommand()
-    data class SendInvalidEmailMessage(val errorMessage: Int) : SignInCommand()
+    data class SendInvalidEmailMessage(@StringRes val errorMessage: Int) : SignInCommand()
 }

@@ -5,5 +5,5 @@
     <string name="sign_in_input_password">Password</string>
     <string name="sign_in_input_email">E-mail ID</string>
     <string name="sign_in_email_error">Invalid e-mail</string>
-    <string name="generic_error">An error occured while loading data</string>
+    <string name="generic_error">An error occurred while loading data</string>
 </resources>
