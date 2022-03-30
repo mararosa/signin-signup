@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.estudos.signupsignin.R
-import com.estudos.signupsignin.signin.domain.SignInInteractor
 import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -27,7 +26,7 @@ class SignInViewModel : ViewModel() {
             isValidEmail = true
         } else {
             commandLiveData.value =
-                SignInCommand.SendInvalidEmailMessage(errorMessage = R.string.sign_in_email_error)
+                SignInCommand.SendInvalidEmailMessage(errorMessageRes = R.string.sign_in_email_error)
             isValidEmail = false
         }
     }

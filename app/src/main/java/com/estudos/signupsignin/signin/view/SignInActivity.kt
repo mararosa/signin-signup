@@ -5,8 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -39,7 +37,7 @@ class SignInActivity : AppCompatActivity() {
             when (command) {
                 is SignInCommand.ChangeButtonState -> binding.signinButton.isEnabled =
                     command.values
-                is SignInCommand.SendInvalidEmailMessage -> sendErrorMessage(command.errorMessage)
+                is SignInCommand.SendInvalidEmailMessage -> sendErrorMessage(getString(command.errorMessageRes))
                 is SignInCommand.OpenSignUpScreen -> startActivity(SignUpActivity.intent(this))
             }
         })
@@ -64,11 +62,12 @@ class SignInActivity : AppCompatActivity() {
     private fun showError() {
         binding.errorView.errorContainer.isVisible = true
         binding.container.isVisible = false
+        binding.loadingView.isVisible = false
     }
 
-    private fun sendErrorMessage(@StringRes errorMessage: Int) {
+    private fun sendErrorMessage(errorMessage: String) {
         binding.signinButton.isEnabled = false
-        binding.inputEmail.error = errorMessage.toString()
+        binding.inputEmail.error = errorMessage
     }
 
     private fun setupInputValues() {
