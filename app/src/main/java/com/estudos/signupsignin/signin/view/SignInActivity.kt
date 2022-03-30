@@ -45,10 +45,20 @@ class SignInActivity : AppCompatActivity() {
         })
         viewModel.viewStateLiveData.observe(this, Observer { state ->
             when (state) {
-                is SignInViewState.Success -> Toast.makeText(this, "click", Toast.LENGTH_SHORT).show()
+                is SignInViewState.Success -> {
+                    binding.loadingView.isVisible = false
+                    SignUpActivity.intent(this)
+                }
                 is SignInViewState.Error -> showError()
+                is SignInViewState.Loading -> showLoading()
             }
         })
+    }
+
+    private fun showLoading() {
+        binding.loadingView.isVisible = true
+        binding.errorView.errorContainer.isVisible = false
+        binding.container.isVisible = false
     }
 
     private fun showError() {
@@ -64,8 +74,6 @@ class SignInActivity : AppCompatActivity() {
     private fun setupInputValues() {
         binding.inputEmail.addTextChangedListener(textWatcher)
         binding.inputPassword.addTextChangedListener(textWatcher)
-        email = binding.inputEmail.toString()
-        password = binding.inputPassword.toString()
     }
 
     private fun setupClickListeners() {
@@ -88,6 +96,8 @@ class SignInActivity : AppCompatActivity() {
                 isValidInputtedEmail = userEmail,
                 userInputtedPassword = binding.inputPassword.text.toString()
             )
+            email = binding.inputEmail.text.toString()
+            password = binding.inputPassword.text.toString()
         }
     }
 
