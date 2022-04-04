@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.estudos.signupsignin">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Signupsignin">
         <activity
-            android:name="com.estudos.signupsignin.signin.view.SignInActivity"
+            android:name=".TesteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".signin.view.SignInActivity"
             android:exported="true"
             android:theme="@style/Theme.Signupsignin.NoActionBar">
             <intent-filter>
@@ -21,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".signup.view.SignUpActivity"/>
+        <activity android:name=".signup.view.SignUpActivity" />
     </application>
 
 </manifest>

@@ -8,29 +8,30 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class SignInRepository {
-
-    private val BASE_URL = "https://edimara.free.beeceptor.com"
-    private val service: SignInService
-    private val clientBuilder = OkHttpClient.Builder()
-
-    init {
-        val moshi =
-            Moshi
-                .Builder()
-                .add(KotlinJsonAdapterFactory())
-                .build()
-
-        service = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(clientBuilder.build())
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-            .create(SignInService::class.java)
-    }
+class SignInRepository(val service: SignInService = createService()) {
 
     fun fetchLogin(): Completable {
         return service.fetchLogin()
+    }
+
+    companion object {
+        private val BASE_URL = "https://edimara.free.beeceptor.com"
+        private val clientBuilder = OkHttpClient.Builder()
+
+        fun createService(): SignInService {
+            val moshi =
+                Moshi
+                    .Builder()
+                    .add(KotlinJsonAdapterFactory())
+                    .build()
+
+            return Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(clientBuilder.build())
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+                .create(SignInService::class.java)
+        }
     }
 }

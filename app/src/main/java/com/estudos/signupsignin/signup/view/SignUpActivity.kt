@@ -17,7 +17,7 @@ import com.estudos.signupsignin.util.GenericTextWatcher
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
-    private val viewModel = SignInViewModel()
+    private val viewModel = SignUpActivity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

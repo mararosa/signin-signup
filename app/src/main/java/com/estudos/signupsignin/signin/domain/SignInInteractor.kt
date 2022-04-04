@@ -7,12 +7,9 @@ interface SignInInteractor {
     fun fetchLogin(email: String, password: String): Completable
 }
 
-class SignInInteractorImpl : SignInInteractor {
-    private val repository = SignInRepository()
+class SignInInteractorImpl(val repository: SignInRepository = SignInRepository()) : SignInInteractor {
 
     override fun fetchLogin(email: String, password: String): Completable {
-       return repository.fetchLogin()
+        return repository.fetchLogin()
     }
-
-
 }

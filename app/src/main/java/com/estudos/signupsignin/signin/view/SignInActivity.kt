@@ -8,6 +8,9 @@ import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.estudos.signupsignin.TesteActivity
 import com.estudos.signupsignin.databinding.ActivitySignInBinding
 import com.estudos.signupsignin.signin.viewmodel.SignInCommand
 import com.estudos.signupsignin.signin.viewmodel.SignInViewModel
@@ -17,13 +20,16 @@ import com.estudos.signupsignin.signup.view.SignUpActivity
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
-    private val viewModel = SignInViewModel()
+    private lateinit var viewModel: SignInViewModel
 
     private var email: String = ""
     private var password: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProviders.of(this).get(SignInViewModel::class.java)
+
         binding = ActivitySignInBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -45,7 +51,7 @@ class SignInActivity : AppCompatActivity() {
             when (state) {
                 is SignInViewState.Success -> {
                     binding.loadingView.isVisible = false
-                    SignUpActivity.intent(this)
+                    startActivity(Intent(this, TesteActivity::class.java))
                 }
                 is SignInViewState.Error -> showError()
                 is SignInViewState.Loading -> showLoading()

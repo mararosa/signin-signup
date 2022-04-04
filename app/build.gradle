@@ -70,10 +70,13 @@ dependencies {
     // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
-
     //Dagger
     implementation 'com.google.dagger:dagger-android:2.35.1'
     implementation 'com.google.dagger:dagger-android-support:2.26'
+
+    //Mockk
+    testImplementation "io.mockk:mockk:1.12.3"
+
     // if you use the support libraries
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt 'com.google.dagger:dagger-android-processor:2.26'

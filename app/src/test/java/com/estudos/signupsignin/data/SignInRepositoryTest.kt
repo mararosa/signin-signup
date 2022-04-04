@@ -1,6 +1,7 @@
-package com.estudos.signupsignin.domain
+package com.estudos.signupsignin.data
 
 import com.estudos.signupsignin.signin.data.SignInRepository
+import com.estudos.signupsignin.signin.data.SignInService
 import com.estudos.signupsignin.signin.domain.SignInInteractor
 import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
 import io.mockk.MockKAnnotations
@@ -10,37 +11,37 @@ import io.reactivex.Completable
 import org.junit.Before
 import org.junit.Test
 
-class SignInInteractorTest {
+class SignInRepositoryTest {
 
-    private lateinit var interactor: SignInInteractor
+    private lateinit var repository: SignInRepository
 
     @RelaxedMockK
-    private lateinit var repository: SignInRepository
+    private lateinit var service: SignInService
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        interactor = SignInInteractorImpl(repository)
+        repository = SignInRepository(service)
     }
 
     @Test
-    fun givenRepository_whenCallingfetchLogin_thenReturnSuccess() {
+    fun givenService_whenCallingfetchLogin_thenReturnSuccess() {
         // given
-        every { repository.fetchLogin() } returns Completable.complete()
+        every { service.fetchLogin() } returns Completable.complete()
 
         // then
-        interactor.fetchLogin("email", "senha")
+        repository.fetchLogin()
             .test()
             .assertComplete()
     }
 
     @Test
-    fun givenRepository_whenCallingfetchLogin_thenReturnError() {
+    fun givenService_whenCallingfetchLogin_thenReturnError() {
         // given
-        every { repository.fetchLogin() } returns Completable.error(RuntimeException())
+        every { service.fetchLogin() } returns Completable.error(RuntimeException())
 
         // then
-        interactor.fetchLogin("email", "senha")
+        repository.fetchLogin()
             .test()
             .assertError { it is RuntimeException }
     }

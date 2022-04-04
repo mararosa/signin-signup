@@ -5,13 +5,13 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.estudos.signupsignin.R
+import com.estudos.signupsignin.signin.domain.SignInInteractor
 import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class SignInViewModel : ViewModel() {
-    private val interactor = SignInInteractorImpl()
+class SignInViewModel(val interactor: SignInInteractor) : ViewModel() {
     private val disposable = CompositeDisposable()
 
     private var isValidEmail: Boolean = false
@@ -21,7 +21,7 @@ class SignInViewModel : ViewModel() {
     val commandLiveData = SingleLiveEvent<SignInCommand>()
 
 
-    fun verifyEmail(isValidInputtedEmail: Boolean) {
+    private fun verifyEmail(isValidInputtedEmail: Boolean) {
         if (isValidInputtedEmail) {
             isValidEmail = true
         } else {
@@ -31,7 +31,7 @@ class SignInViewModel : ViewModel() {
         }
     }
 
-    fun verifyPassword(userInputtedPassword: String) {
+    private fun verifyPassword(userInputtedPassword: String) {
         isValidPassword = userInputtedPassword.length >= MINIMUM_PASSOWORD_LENGTH
     }
 
