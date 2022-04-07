@@ -12,8 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.estudos.signupsignin.TesteActivity
 import com.estudos.signupsignin.databinding.ActivitySignInBinding
+import com.estudos.signupsignin.signin.domain.SignInInteractor
+import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
 import com.estudos.signupsignin.signin.viewmodel.SignInCommand
 import com.estudos.signupsignin.signin.viewmodel.SignInViewModel
+import com.estudos.signupsignin.signin.viewmodel.SignInViewModelFactory
 import com.estudos.signupsignin.signin.viewmodel.SignInViewState
 import com.estudos.signupsignin.signup.view.SignUpActivity
 
@@ -28,7 +31,8 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(SignInViewModel::class.java)
+        val viewModelFactory = SignInViewModelFactory(interactor = SignInInteractorImpl())
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(SignInViewModel::class.java)
 
         binding = ActivitySignInBinding.inflate(layoutInflater)
         val view = binding.root

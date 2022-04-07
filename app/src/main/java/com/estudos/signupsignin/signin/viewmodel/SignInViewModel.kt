@@ -7,13 +7,17 @@ import androidx.lifecycle.ViewModel
 import com.estudos.signupsignin.R
 import com.estudos.signupsignin.signin.domain.SignInInteractor
 import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class SignInViewModel(val interactor: SignInInteractor) : ViewModel() {
+class SignInViewModel(
+    val interactor: SignInInteractor,
+    val scheduler: Scheduler,
+    val androidScheduler: Scheduler
+) : ViewModel() {
     private val disposable = CompositeDisposable()
-
     private var isValidEmail: Boolean = false
     private var isValidPassword: Boolean = false
 
@@ -48,12 +52,13 @@ class SignInViewModel(val interactor: SignInInteractor) : ViewModel() {
     fun onLoginClick(email: String, password: String) {
         disposable.add(
             interactor.fetchLogin(email, password)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(scheduler)
+                .observeOn(androidScheduler)
                 .doOnSubscribe { viewStateLiveData.value = SignInViewState.Loading }
                 .subscribe(
                     {
                         viewStateLiveData.value = SignInViewState.Success
+
                     },
                     {
                         viewStateLiveData.value = SignInViewState.Error
