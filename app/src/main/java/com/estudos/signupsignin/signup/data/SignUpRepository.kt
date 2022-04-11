@@ -1,4 +1,6 @@
-package com.estudos.signupsignin.signin.data
+package com.estudos.signupsignin.signup.data
 
-class SignUpRepository {
+interface SignUpRepository {}
+
+class SignUpRepositoryImpl() : SignUpRepository {
 }

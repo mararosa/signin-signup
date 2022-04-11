@@ -1,4 +1,4 @@
-package com.estudos.signupsignin.signin.data
+package com.estudos.signupsignin.service
 
 import io.reactivex.Completable
 import retrofit2.http.GET

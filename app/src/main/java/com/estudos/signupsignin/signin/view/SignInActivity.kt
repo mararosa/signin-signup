@@ -8,11 +8,9 @@ import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.estudos.signupsignin.TesteActivity
 import com.estudos.signupsignin.databinding.ActivitySignInBinding
-import com.estudos.signupsignin.signin.domain.SignInInteractor
 import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
 import com.estudos.signupsignin.signin.viewmodel.SignInCommand
 import com.estudos.signupsignin.signin.viewmodel.SignInViewModel
@@ -86,10 +84,10 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        binding.signupButton.setOnClickListener { viewModel.onSignUpClick() }
         binding.signinButton.setOnClickListener {
             viewModel.onLoginClick(email, password)
         }
+        binding.signupButton.setOnClickListener { viewModel.onRegisterClick() }
     }
 
     val textWatcher = object : TextWatcher {

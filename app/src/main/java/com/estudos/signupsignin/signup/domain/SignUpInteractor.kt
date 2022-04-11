@@ -1,4 +1,6 @@
 package com.estudos.signupsignin.signup.domain
 
-class SignUpInteractor {
+interface SignUpInteractor {}
+
+class SignUpInteractorImpl() : SignUpInteractor {
 }

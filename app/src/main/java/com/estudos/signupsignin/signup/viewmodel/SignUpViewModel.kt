@@ -4,7 +4,8 @@ import SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SignUpViewModel : ViewModel() {
+class SignUpViewModel(
+) : ViewModel() {
 
     val viewStateLiveData = MutableLiveData<SignUpViewState>()
     val commandLiveData = SingleLiveEvent<SignUpCommand>()

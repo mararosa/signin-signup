@@ -6,11 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.estudos.signupsignin.R
 import com.estudos.signupsignin.signin.domain.SignInInteractor
-import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
 import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 class SignInViewModel(
     val interactor: SignInInteractor,
@@ -71,6 +68,10 @@ class SignInViewModel(
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
+    }
+
+    fun onRegisterClick() {
+        commandLiveData.value = SignInCommand.OpenSignUpScreen
     }
 
     private companion object {

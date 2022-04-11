@@ -1,5 +1,6 @@
 package com.estudos.signupsignin.signin.data
 
+import com.estudos.signupsignin.service.SignInService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import io.reactivex.Completable
