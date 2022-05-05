@@ -24,7 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".signup.view.SignUpActivity" />
+        <activity
+            android:name=".signup.view.SignUpActivity"
+            android:parentActivityName=".signin.view.SignInActivity"
+            android:theme="@style/Theme.Signupsignin.NoActionBar" />
     </application>
 
 </manifest>

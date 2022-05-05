@@ -15,30 +15,29 @@ class SignInViewModel(
     val androidScheduler: Scheduler
 ) : ViewModel() {
     private val disposable = CompositeDisposable()
-    private var isValidEmail: Boolean = false
-    private var isValidPassword: Boolean = false
 
     val viewStateLiveData = MutableLiveData<SignInViewState>()
     val commandLiveData = SingleLiveEvent<SignInCommand>()
 
 
-    private fun verifyEmail(isValidInputtedEmail: Boolean) {
-        if (isValidInputtedEmail) {
-            isValidEmail = true
+    private fun verifyEmail(isValidInputtedEmail: Boolean): Boolean {
+        return if (isValidInputtedEmail) {
+            true
         } else {
             commandLiveData.value =
                 SignInCommand.SendInvalidEmailMessage(errorMessageRes = R.string.sign_in_email_error)
-            isValidEmail = false
+            false
         }
     }
 
-    private fun verifyPassword(userInputtedPassword: String) {
-        isValidPassword = userInputtedPassword.length >= MINIMUM_PASSOWORD_LENGTH
+    private fun verifyPassword(userInputtedPassword: String): Boolean {
+
+        return userInputtedPassword.length >= MINIMUM_PASSOWORD_LENGTH
     }
 
     fun verifyInputValues(isValidInputtedEmail: Boolean, userInputtedPassword: String) {
-        verifyEmail(isValidInputtedEmail)
-        verifyPassword(userInputtedPassword)
+        val isValidEmail = verifyEmail(isValidInputtedEmail)
+        val isValidPassword = verifyPassword(userInputtedPassword)
         commandLiveData.value = SignInCommand.ChangeButtonState(isValidEmail && isValidPassword)
     }
 
