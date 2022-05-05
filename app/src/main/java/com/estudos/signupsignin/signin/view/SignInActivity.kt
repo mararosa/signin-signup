@@ -8,11 +8,9 @@ import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.estudos.signupsignin.TesteActivity
 import com.estudos.signupsignin.databinding.ActivitySignInBinding
-import com.estudos.signupsignin.signin.domain.SignInInteractor
 import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
 import com.estudos.signupsignin.signin.viewmodel.SignInCommand
 import com.estudos.signupsignin.signin.viewmodel.SignInViewModel
@@ -24,9 +22,6 @@ class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
     private lateinit var viewModel: SignInViewModel
-
-    private var email: String = ""
-    private var password: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +41,7 @@ class SignInActivity : AppCompatActivity() {
         viewModel.commandLiveData.observe(this, Observer { command ->
             when (command) {
                 is SignInCommand.ChangeButtonState -> binding.signinButton.isEnabled =
-                    command.values
+                    command.isCorrectValues
                 is SignInCommand.SendInvalidEmailMessage -> sendErrorMessage(getString(command.errorMessageRes))
                 is SignInCommand.OpenSignUpScreen -> startActivity(SignUpActivity.intent(this))
             }
@@ -87,12 +82,12 @@ class SignInActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         binding.signupButton.setOnClickListener { viewModel.onSignUpClick() }
-        binding.signinButton.setOnClickListener {
-            viewModel.onLoginClick(email, password)
-        }
+        binding.signinButton.setOnClickListener { viewModel.onLoginClick() }
     }
 
-    val textWatcher = object : TextWatcher {
+
+
+    private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -105,12 +100,11 @@ class SignInActivity : AppCompatActivity() {
                 isValidInputtedEmail = userEmail,
                 userInputtedPassword = binding.inputPassword.text.toString()
             )
-            email = binding.inputEmail.text.toString()
-            password = binding.inputPassword.text.toString()
         }
     }
 
     companion object {
         fun intent(context: Context) = Intent(context, SignInActivity::class.java)
     }
+
 }

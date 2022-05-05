@@ -56,14 +56,25 @@ class SignInViewModelTest {
         // given
         val email = true
         val password = "12345678"
-        val isValidEmail = true
-        val isValidPassword = true
 
         // when
         viewModel.verifyInputValues(email, password)
 
         // then
-        commandObserver emitted SignInCommand.ChangeButtonState(isValidEmail && isValidPassword)
+        commandObserver emitted SignInCommand.ChangeButtonState(true)
+    }
+
+    @Test
+    fun givenInputValues_whenPasswordIsInvalid_thenSendCommandFalse() {
+        // given
+        val email = true
+        val password = "123"
+
+        // when
+        viewModel.verifyInputValues(email, password)
+
+        // then
+        commandObserver emitted SignInCommand.ChangeButtonState(false)
     }
 
     @Test
@@ -71,15 +82,13 @@ class SignInViewModelTest {
         // given
         val email = false
         val password = "12345678"
-        val isValidEmail = false
-        val isValidPassword = true
 
         // when
         viewModel.verifyInputValues(email, password)
 
         // then
         commandObserver emitted SignInCommand.SendInvalidEmailMessage(R.string.sign_in_email_error)
-        commandObserver emitted SignInCommand.ChangeButtonState(isValidEmail && isValidPassword)
+        commandObserver emitted SignInCommand.ChangeButtonState(false)
 
     }
 
@@ -88,10 +97,10 @@ class SignInViewModelTest {
         // given
         val email = "mara_rosa@teste.com"
         val password = "123456789"
-        every { interactor.fetchLogin(email, password) } returns Completable.complete()
+        every { interactor.fetchLogin() } returns Completable.complete()
 
         // when
-        viewModel.onLoginClick(email, password)
+        viewModel.onLoginClick()
 
         // then
         viewStateObserver emitted SignInViewState.Loading

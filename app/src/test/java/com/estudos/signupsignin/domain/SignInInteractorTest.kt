@@ -29,7 +29,7 @@ class SignInInteractorTest {
         every { repository.fetchLogin() } returns Completable.complete()
 
         // then
-        interactor.fetchLogin("email", "senha")
+        interactor.fetchLogin()
             .test()
             .assertComplete()
     }
@@ -40,7 +40,7 @@ class SignInInteractorTest {
         every { repository.fetchLogin() } returns Completable.error(RuntimeException())
 
         // then
-        interactor.fetchLogin("email", "senha")
+        interactor.fetchLogin()
             .test()
             .assertError { it is RuntimeException }
     }
