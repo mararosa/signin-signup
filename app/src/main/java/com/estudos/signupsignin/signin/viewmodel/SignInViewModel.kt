@@ -10,9 +10,9 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class SignInViewModel(
-    val interactor: SignInInteractor,
-    val scheduler: Scheduler,
-    val androidScheduler: Scheduler
+    private val interactor: SignInInteractor,
+    private val scheduler: Scheduler,
+    private val androidScheduler: Scheduler
 ) : ViewModel() {
     private val disposable = CompositeDisposable()
 
@@ -45,9 +45,9 @@ class SignInViewModel(
         commandLiveData.value = SignInCommand.OpenSignUpScreen
     }
 
-    fun onLoginClick(email: String, password: String) {
+    fun onLoginClick() {
         disposable.add(
-            interactor.fetchLogin(email, password)
+            interactor.fetchLogin()
                 .subscribeOn(scheduler)
                 .observeOn(androidScheduler)
                 .doOnSubscribe { viewStateLiveData.value = SignInViewState.Loading }
