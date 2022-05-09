@@ -31,7 +31,6 @@ class SignUpActivity : AppCompatActivity() {
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = "Sign Up"
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

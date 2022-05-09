@@ -24,7 +24,6 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-
             <TextView
                 style="@style/SignUp.Text"
                 android:layout_width="wrap_content"
@@ -123,6 +122,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 </layout>

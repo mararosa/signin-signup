@@ -15,7 +15,7 @@
     <string name="sign_up_input_email">E-mail</string>
     <string name="sign_up_input_password">Password</string>
     <string name="sign_up_input_confirm_password">Confirm your Password</string>
-    <string name="sign_up_register_button">Register</string>
+    <string name="sign_up_register_button">Create</string>
 
     <string name="generic_error">An error occurred while loading data</string>
 </resources>
