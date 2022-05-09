@@ -1,5 +1,6 @@
 package com.estudos.signupsignin.signin.view
 
+import GenericTextWatcher
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -22,6 +23,18 @@ class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
     private lateinit var viewModel: SignInViewModel
+    private val textWatcher = GenericTextWatcher()
+    {
+        val userEmail =
+            android.util.Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString())
+                .matches()
+        val userPassword = binding.inputPassword.text.toString()
+
+        viewModel.verifyInputValues(
+            isValidInputtedEmail = userEmail,
+            userInputtedPassword = userPassword
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +49,7 @@ class SignInActivity : AppCompatActivity() {
         setupInputValues()
         setupClickListeners()
     }
+
 
     private fun watchEvents() {
         viewModel.commandLiveData.observe(this, Observer { command ->
@@ -86,25 +100,9 @@ class SignInActivity : AppCompatActivity() {
     }
 
 
-
-    private val textWatcher = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-        override fun afterTextChanged(p0: Editable?) {
-            val userEmail =
-                android.util.Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString())
-                    .matches()
-            viewModel.verifyInputValues(
-                isValidInputtedEmail = userEmail,
-                userInputtedPassword = binding.inputPassword.text.toString()
-            )
-        }
-    }
-
     companion object {
         fun intent(context: Context) = Intent(context, SignInActivity::class.java)
     }
+
 
 }

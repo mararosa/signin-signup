@@ -10,6 +10,10 @@
         <entry key="app/src/main/res/drawable/bg_button_default_selectable.xml" value="0.2285" />
         <entry key="app/src/main/res/drawable/bg_edittext_default.xml" value="0.3305" />
         <entry key="app/src/main/res/drawable/bg_layer_gradient.xml" value="0.3305" />
+        <entry key="app/src/main/res/drawable/bg_layer_green.xml" value="0.277" />
+        <entry key="app/src/main/res/font/font.xml" value="0.26944444444444443" />
+        <entry key="app/src/main/res/font/lexend_deca.xml" value="0.3984375" />
+        <entry key="app/src/main/res/font/test.xml" value="0.3984375" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.36822916666666666" />
         <entry key="app/src/main/res/layout/activity_teste.xml" value="0.36822916666666666" />

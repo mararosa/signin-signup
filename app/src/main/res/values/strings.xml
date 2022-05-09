@@ -1,9 +1,21 @@
 <resources>
     <string name="app_name">signup&amp;signin</string>
+
     <string name="sign_in_register_button">Register now</string>
     <string name="sign_in_login_button">Login</string>
     <string name="sign_in_input_password">Password</string>
     <string name="sign_in_input_email">E-mail ID</string>
     <string name="sign_in_email_error">Invalid e-mail</string>
+
+    <string name="sign_up_title">Create Account</string>
+    <string name="sign_up_subtitle">Please enter your personal info</string>
+    <string name="sign_up_input_name">Name</string>
+    <string name="sign_up_input_last_name">Last Name</string>
+    <string name="sign_up_input_phone">Phone</string>
+    <string name="sign_up_input_email">E-mail</string>
+    <string name="sign_up_input_password">Password</string>
+    <string name="sign_up_input_confirm_password">Confirm your Password</string>
+    <string name="sign_up_register_button">Register</string>
+
     <string name="generic_error">An error occurred while loading data</string>
 </resources>
