@@ -66,7 +66,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="text" />
 
-                <EditText
+                <com.santalu.maskedittext.MaskEditText
                     android:id="@+id/input_phone"
                     style="@style/SignIn.InputText"
                     android:layout_width="match_parent"
@@ -75,7 +75,8 @@
                     android:background="@drawable/bg_edittext_default"
                     android:hint="@string/sign_up_input_phone"
                     android:imeOptions="actionNext"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    app:met_mask="+55(##) ####-####"/>
 
                 <EditText
                     android:id="@+id/input_email"
@@ -111,7 +112,7 @@
                     android:inputType="textPassword" />
 
                 <Button
-                    android:id="@+id/signin_button"
+                    android:id="@+id/signup_button"
                     style="@style/SignIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

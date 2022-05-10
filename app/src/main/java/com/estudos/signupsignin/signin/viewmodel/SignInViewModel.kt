@@ -25,7 +25,7 @@ class SignInViewModel(
             true
         } else {
             commandLiveData.value =
-                SignInCommand.SendInvalidEmailMessage(errorMessageRes = R.string.sign_in_email_error)
+                SignInCommand.SendInvalidEmailMessage(errorMessageRes = R.string.generic_email_error)
             false
         }
     }
@@ -39,10 +39,6 @@ class SignInViewModel(
         val isValidEmail = verifyEmail(isValidInputtedEmail)
         val isValidPassword = verifyPassword(userInputtedPassword)
         commandLiveData.value = SignInCommand.ChangeButtonState(isValidEmail && isValidPassword)
-    }
-
-    fun onSignUpClick() {
-        commandLiveData.value = SignInCommand.OpenSignUpScreen
     }
 
     fun onLoginClick() {

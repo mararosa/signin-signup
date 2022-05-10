@@ -80,7 +80,7 @@ class SignInViewModelTest {
         viewModel.verifyInputValues(email, password)
 
         // then
-        commandObserver emitted SignInCommand.SendInvalidEmailMessage(R.string.sign_in_email_error)
+        commandObserver emitted SignInCommand.SendInvalidEmailMessage(R.string.generic_email_error)
         commandObserver emitted SignInCommand.ChangeButtonState(false)
 
     }

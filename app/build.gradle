@@ -86,4 +86,7 @@ dependencies {
     kapt 'com.google.dagger:dagger-android-processor:2.26'
     kapt 'com.google.dagger:dagger-compiler:2.26'
 
+    //edit text mask
+    implementation 'com.github.santalu:mask-edittext:1.0.2'
+
 }

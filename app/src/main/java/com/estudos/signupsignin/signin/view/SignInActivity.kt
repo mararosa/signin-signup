@@ -4,8 +4,6 @@ import GenericTextWatcher
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -25,15 +23,7 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var viewModel: SignInViewModel
     private val textWatcher = GenericTextWatcher()
     {
-        val userEmail =
-            android.util.Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString())
-                .matches()
-        val userPassword = binding.inputPassword.text.toString()
-
-        viewModel.verifyInputValues(
-            isValidInputtedEmail = userEmail,
-            userInputtedPassword = userPassword
-        )
+        sendTextFromInput()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,13 +40,12 @@ class SignInActivity : AppCompatActivity() {
         setupClickListeners()
     }
 
-
     private fun watchEvents() {
         viewModel.commandLiveData.observe(this, Observer { command ->
             when (command) {
                 is SignInCommand.ChangeButtonState -> binding.signinButton.isEnabled =
-                    command.isCorrectValues
-                is SignInCommand.SendInvalidEmailMessage -> sendErrorMessage(getString(command.errorMessageRes))
+                    command.isButtonEnabled
+                is SignInCommand.SendInvalidEmailMessage -> sendInvalidEmailMessage(getString(command.errorMessageRes))
                 is SignInCommand.OpenSignUpScreen -> startActivity(SignUpActivity.intent(this))
             }
         })
@@ -72,6 +61,18 @@ class SignInActivity : AppCompatActivity() {
         })
     }
 
+    private fun sendTextFromInput() {
+        val isAValidEmail =
+            android.util.Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString())
+                .matches()
+        val userPassword = binding.inputPassword.text.toString()
+
+        viewModel.verifyInputValues(
+            isValidInputtedEmail = isAValidEmail,
+            userInputtedPassword = userPassword
+        )
+    }
+
     private fun showLoading() {
         binding.loadingView.isVisible = true
         binding.errorView.errorContainer.isVisible = false
@@ -84,7 +85,7 @@ class SignInActivity : AppCompatActivity() {
         binding.loadingView.isVisible = false
     }
 
-    private fun sendErrorMessage(errorMessage: String) {
+    private fun sendInvalidEmailMessage(errorMessage: String) {
         binding.signinButton.isEnabled = false
         binding.inputEmail.error = errorMessage
     }
