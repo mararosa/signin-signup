@@ -4,123 +4,127 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center" />
+        android:background="@drawable/bg_layer_purple">
 
         <LinearLayout
-            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_layer_purple"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:orientation="vertical">
 
-            <TextView
-                style="@style/SignUp.Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_48dp"
-                android:text="@string/sign_up_title" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/SignUp.Text"
-                android:layout_marginTop="@dimen/margin_16dp"
-                android:text="@string/sign_up_subtitle" />
-
-            <EditText
-                android:id="@+id/input_name"
-                style="@style/SignIn.InputText"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="@dimen/margin_36dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:background="@drawable/bg_edittext_default"
-                android:hint="@string/sign_up_input_name"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress" />
-
-            <EditText
-                android:id="@+id/input_lastName"
-                style="@style/SignIn.InputText"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:background="@drawable/bg_edittext_default"
-                android:hint="@string/sign_up_input_last_name"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword" />
-
-            <EditText
-                android:id="@+id/input_phone"
-                style="@style/SignIn.InputText"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:background="@drawable/bg_edittext_default"
-                android:hint="@string/sign_up_input_phone"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword" />
-
-            <EditText
-                android:id="@+id/input_email"
-                style="@style/SignIn.InputText"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:background="@drawable/bg_edittext_default"
-                android:hint="@string/sign_up_input_email"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword" />
-
-            <EditText
-                android:id="@+id/input_password"
-                style="@style/SignIn.InputText"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:background="@drawable/bg_edittext_default"
-                android:hint="@string/sign_up_input_password"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword" />
-
-            <EditText
-                android:id="@+id/input_confirm_password"
-                style="@style/SignIn.InputText"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:background="@drawable/bg_edittext_default"
-                android:hint="@string/sign_up_input_confirm_password"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword" />
-
-            <Button
-                android:id="@+id/signin_button"
-                style="@style/SignIn"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_36dp"
-                android:background="@drawable/bg_button_default_selectable"
-                android:enabled="false"
-                android:text="@string/sign_up_register_button"
-                android:textAllCaps="false"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:backgroundTint="@null"/>
+                android:textAlignment="center" />
 
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    style="@style/SignUp.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_48dp"
+                    android:text="@string/sign_up_title" />
+
+                <TextView
+                    style="@style/SignUp.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:text="@string/sign_up_subtitle" />
+
+                <EditText
+                    android:id="@+id/input_name"
+                    style="@style/SignIn.InputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/margin_36dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:background="@drawable/bg_edittext_default"
+                    android:hint="@string/sign_up_input_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/input_lastName"
+                    style="@style/SignIn.InputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:background="@drawable/bg_edittext_default"
+                    android:hint="@string/sign_up_input_last_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/input_phone"
+                    style="@style/SignIn.InputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:background="@drawable/bg_edittext_default"
+                    android:hint="@string/sign_up_input_phone"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone" />
+
+                <EditText
+                    android:id="@+id/input_email"
+                    style="@style/SignIn.InputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:background="@drawable/bg_edittext_default"
+                    android:hint="@string/sign_up_input_email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/input_password"
+                    style="@style/SignIn.InputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:background="@drawable/bg_edittext_default"
+                    android:hint="@string/sign_up_input_password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/input_confirm_password"
+                    style="@style/SignIn.InputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:background="@drawable/bg_edittext_default"
+                    android:hint="@string/sign_up_input_confirm_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword" />
+
+                <Button
+                    android:id="@+id/signin_button"
+                    style="@style/SignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_36dp"
+                    android:background="@drawable/bg_button_default_selectable"
+                    android:enabled="false"
+                    android:text="@string/sign_up_register_button"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null" />
+
+            </LinearLayout>
         </LinearLayout>
-
-    </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
 </layout>
