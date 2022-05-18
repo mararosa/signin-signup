@@ -27,7 +27,8 @@
         <activity
             android:name=".signup.view.SignUpActivity"
             android:parentActivityName=".signin.view.SignInActivity"
-            android:theme="@style/Theme.Signupsignin.NoActionBar" />
+            android:theme="@style/Theme.Signupsignin.NoActionBar"
+            android:label="Sign Up"/>
 
         <meta-data
             android:name="preloaded_fonts"

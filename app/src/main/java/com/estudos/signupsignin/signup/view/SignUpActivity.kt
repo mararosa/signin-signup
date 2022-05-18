@@ -6,13 +6,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.estudos.signupsignin.TesteActivity
 import com.estudos.signupsignin.databinding.ActivitySignUpBinding
+import com.estudos.signupsignin.signup.data.request.RegisterUserInfoRequest
+import com.estudos.signupsignin.signup.domain.SignUpInteractorImpl
 import com.estudos.signupsignin.signup.viewmodel.SignUpCommand
 import com.estudos.signupsignin.signup.viewmodel.SignUpValues
 import com.estudos.signupsignin.signup.viewmodel.SignUpViewModel
 import com.estudos.signupsignin.signup.viewmodel.SignUpViewModelFactory
+import com.estudos.signupsignin.signup.viewmodel.SignUpViewState
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -26,20 +31,22 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModelFactory = SignUpViewModelFactory()
+        val viewModelFactory = SignUpViewModelFactory(interactor = SignUpInteractorImpl())
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SignUpViewModel::class.java)
 
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         val view = binding.root
+
         setContentView(view)
         setupToolbar()
         watchEvents()
         setupInputValues()
+        setupClickListeners()
     }
 
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -52,13 +59,29 @@ class SignUpActivity : AppCompatActivity() {
             when (command) {
                 is SignUpCommand.ChangeButtonState -> binding.signupButton.isEnabled =
                     command.isButtonEnabled
-                is SignUpCommand.SendInvalidEmailMessage -> sendInvalidEmailMessage(getString(command.errorMessageRes))
+                is SignUpCommand.SendInvalidEmailMessage -> sendInvalidEmailMessage(
+                    getString(
+                        command.errorMessageRes
+                    )
+                )
+            }
+        })
+        viewModel.viewStateLiveData.observe(this, Observer { state ->
+            when (state) {
+                is SignUpViewState.Loading -> showLoading()
+                is SignUpViewState.Success -> setupView()
+                is SignUpViewState.Error -> showError()
             }
         })
     }
 
+    private fun setupView() {
+        binding.loadingView.isVisible = false
+        startActivity(Intent(this, TesteActivity::class.java))
+    }
+
     private fun sendInvalidEmailMessage(message: String) {
-        binding.signupButton.isEnabled = false //TODO pq eu coloquei aqui nao lembrp
+        binding.signupButton.isEnabled = false
         binding.inputEmail.error = message
     }
 
@@ -90,6 +113,32 @@ class SignUpActivity : AppCompatActivity() {
             inputPassword.addTextChangedListener(textWatcher)
             inputConfirmPassword.addTextChangedListener(textWatcher)
         }
+    }
+
+    private fun setupClickListeners() {
+        binding.signupButton.setOnClickListener {
+            viewModel.onRegisterClick(
+                request = RegisterUserInfoRequest(
+                    "mara",
+                    "rosa",
+                    "1198887777",
+                    "mara@testes.com",
+                    "oioioioioi"
+                )
+            )
+        }
+    }
+
+    private fun showLoading() {
+        binding.loadingView.isVisible = true
+        binding.errorView.errorContainer.isVisible = false
+        binding.container.isVisible = false
+    }
+
+    private fun showError() {
+        binding.errorView.errorContainer.isVisible = true
+        binding.container.isVisible = false
+        binding.loadingView.isVisible = false
     }
 
     companion object {

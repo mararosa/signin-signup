@@ -32,7 +32,7 @@ class SignInViewModel(
 
     private fun verifyPassword(userInputtedPassword: String): Boolean {
 
-        return userInputtedPassword.length >= MINIMUM_PASSOWORD_LENGTH
+        return userInputtedPassword.length >= MINIMUM_PASSWORD_LENGTH
     }
 
     fun verifyInputValues(isValidInputtedEmail: Boolean, userInputtedPassword: String) {
@@ -70,6 +70,6 @@ class SignInViewModel(
     }
 
     private companion object {
-        private const val MINIMUM_PASSOWORD_LENGTH = 8
+        private const val MINIMUM_PASSWORD_LENGTH = 8
     }
 }
