@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.estudos.signupsignin.TesteActivity
+import com.estudos.signupsignin.success.view.SuccessActivity
 import com.estudos.signupsignin.databinding.ActivitySignInBinding
 import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
 import com.estudos.signupsignin.signin.viewmodel.SignInCommand
@@ -53,7 +53,7 @@ class SignInActivity : AppCompatActivity() {
             when (state) {
                 is SignInViewState.Success -> {
                     binding.loadingView.isVisible = false
-                    startActivity(Intent(this, TesteActivity::class.java))
+                    startActivity(Intent(this, SuccessActivity::class.java))
                 }
                 is SignInViewState.Error -> showError()
                 is SignInViewState.Loading -> showLoading()

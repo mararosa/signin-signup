@@ -18,7 +18,7 @@ class SignInRepositoryTest {
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        repository = SignInRepository(service)
+        repository = SignInRepositoryImpl(service)
     }
 
     @Test

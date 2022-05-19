@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Signupsignin">
         <activity
-            android:name=".TesteActivity"
+            android:name=".success.view.SuccessActivity"
             android:exported="false" />
         <activity
             android:name=".signin.view.SignInActivity"

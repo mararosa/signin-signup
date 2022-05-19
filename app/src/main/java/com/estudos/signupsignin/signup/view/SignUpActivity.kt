@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.estudos.signupsignin.TesteActivity
+import com.estudos.signupsignin.success.view.SuccessActivity
 import com.estudos.signupsignin.databinding.ActivitySignUpBinding
 import com.estudos.signupsignin.signup.data.request.RegisterUserInfoRequest
 import com.estudos.signupsignin.signup.domain.SignUpInteractorImpl
@@ -27,6 +27,7 @@ class SignUpActivity : AppCompatActivity() {
     {
         sendTextFromInput()
     }
+    private var userInformation: RegisterUserInfoRequest? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,8 +77,8 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        binding.loadingView.isVisible = false
-        startActivity(Intent(this, TesteActivity::class.java))
+        binding.loadingView.loadingContainer.isVisible = false
+        startActivity(Intent(this, SuccessActivity::class.java))
     }
 
     private fun sendInvalidEmailMessage(message: String) {
@@ -117,20 +118,22 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         binding.signupButton.setOnClickListener {
-            viewModel.onRegisterClick(
-                request = RegisterUserInfoRequest(
-                    "mara",
-                    "rosa",
-                    "1198887777",
-                    "mara@testes.com",
-                    "oioioioioi"
+            with(binding) {
+                viewModel.onRegisterClick(
+                    request = RegisterUserInfoRequest(
+                        inputName.text.toString(),
+                        inputLastName.text.toString(),
+                        inputPhone.text.toString(),
+                        inputEmail.text.toString(),
+                        inputPassword.text.toString()
+                    )
                 )
-            )
+            }
         }
     }
 
     private fun showLoading() {
-        binding.loadingView.isVisible = true
+        binding.loadingView.loadingContainer.isVisible = true
         binding.errorView.errorContainer.isVisible = false
         binding.container.isVisible = false
     }
@@ -138,7 +141,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun showError() {
         binding.errorView.errorContainer.isVisible = true
         binding.container.isVisible = false
-        binding.loadingView.isVisible = false
+        binding.loadingView.loadingContainer.isVisible = false
     }
 
     companion object {
