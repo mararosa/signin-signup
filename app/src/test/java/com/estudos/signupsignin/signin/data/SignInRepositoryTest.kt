@@ -1,9 +1,6 @@
-package com.estudos.signupsignin.data
+package com.estudos.signupsignin.signin.data
 
-import com.estudos.signupsignin.signin.data.SignInRepository
-import com.estudos.signupsignin.signin.data.SignInService
-import com.estudos.signupsignin.signin.domain.SignInInteractor
-import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
+import com.estudos.signupsignin.service.Service
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
@@ -16,12 +13,12 @@ class SignInRepositoryTest {
     private lateinit var repository: SignInRepository
 
     @RelaxedMockK
-    private lateinit var service: SignInService
+    private lateinit var service: Service
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        repository = SignInRepository(service)
+        repository = SignInRepositoryImpl(service)
     }
 
     @Test

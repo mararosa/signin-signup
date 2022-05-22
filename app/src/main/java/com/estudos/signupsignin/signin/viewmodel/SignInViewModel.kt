@@ -6,11 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.estudos.signupsignin.R
 import com.estudos.signupsignin.signin.domain.SignInInteractor
-import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
 import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 class SignInViewModel(
     private val interactor: SignInInteractor,
@@ -28,23 +25,20 @@ class SignInViewModel(
             true
         } else {
             commandLiveData.value =
-                SignInCommand.SendInvalidEmailMessage(errorMessageRes = R.string.sign_in_email_error)
+                SignInCommand.SendInvalidEmailMessage(errorMessageRes = R.string.generic_email_error)
             false
         }
     }
 
     private fun verifyPassword(userInputtedPassword: String): Boolean {
-       return userInputtedPassword.length >= MINIMUM_PASSOWORD_LENGTH
+
+        return userInputtedPassword.length >= MINIMUM_PASSWORD_LENGTH
     }
 
     fun verifyInputValues(isValidInputtedEmail: Boolean, userInputtedPassword: String) {
         val isValidEmail = verifyEmail(isValidInputtedEmail)
         val isValidPassword = verifyPassword(userInputtedPassword)
         commandLiveData.value = SignInCommand.ChangeButtonState(isValidEmail && isValidPassword)
-    }
-
-    fun onSignUpClick() {
-        commandLiveData.value = SignInCommand.OpenSignUpScreen
     }
 
     fun onLoginClick() {
@@ -71,7 +65,11 @@ class SignInViewModel(
         disposable.clear()
     }
 
+    fun onRegisterClick() {
+        commandLiveData.value = SignInCommand.OpenSignUpScreen
+    }
+
     private companion object {
-        private const val MINIMUM_PASSOWORD_LENGTH = 8
+        private const val MINIMUM_PASSWORD_LENGTH = 8
     }
 }

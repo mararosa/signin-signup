@@ -1,37 +1,15 @@
 package com.estudos.signupsignin.signin.data
 
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.estudos.signupsignin.service.Service
+import com.estudos.signupsignin.service.ServiceImpl.Companion.createService
 import io.reactivex.Completable
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 
-class SignInRepository(val service: SignInService = createService()) {
+interface SignInRepository {
+    fun fetchLogin(): Completable
+}
 
-    fun fetchLogin(): Completable {
-        return service.fetchLogin()
-    }
+class SignInRepositoryImpl(val service: Service = createService()) : SignInRepository {
 
-    companion object {
-        private val BASE_URL = "https://edimara.free.beeceptor.com"
-        private val clientBuilder = OkHttpClient.Builder()
-
-        fun createService(): SignInService {
-            val moshi =
-                Moshi
-                    .Builder()
-                    .add(KotlinJsonAdapterFactory())
-                    .build()
-
-            return Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(clientBuilder.build())
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
-                .create(SignInService::class.java)
-        }
-    }
+    override fun fetchLogin(): Completable =
+        service.fetchLogin()
 }
