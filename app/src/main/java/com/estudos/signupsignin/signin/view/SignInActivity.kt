@@ -1,15 +1,14 @@
 package com.estudos.signupsignin.signin.view
 
+import GenericTextWatcher
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.estudos.signupsignin.TesteActivity
+import com.estudos.signupsignin.success.view.SuccessActivity
 import com.estudos.signupsignin.databinding.ActivitySignInBinding
 import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
 import com.estudos.signupsignin.signin.viewmodel.SignInCommand
@@ -22,6 +21,10 @@ class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
     private lateinit var viewModel: SignInViewModel
+    private val textWatcher = GenericTextWatcher()
+    {
+        sendTextFromInput()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +44,8 @@ class SignInActivity : AppCompatActivity() {
         viewModel.commandLiveData.observe(this, Observer { command ->
             when (command) {
                 is SignInCommand.ChangeButtonState -> binding.signinButton.isEnabled =
-                    command.isCorrectValues
-                is SignInCommand.SendInvalidEmailMessage -> sendErrorMessage(getString(command.errorMessageRes))
+                    command.isButtonEnabled
+                is SignInCommand.SendInvalidEmailMessage -> sendInvalidEmailMessage(getString(command.errorMessageRes))
                 is SignInCommand.OpenSignUpScreen -> startActivity(SignUpActivity.intent(this))
             }
         })
@@ -50,12 +53,24 @@ class SignInActivity : AppCompatActivity() {
             when (state) {
                 is SignInViewState.Success -> {
                     binding.loadingView.isVisible = false
-                    startActivity(Intent(this, TesteActivity::class.java))
+                    startActivity(Intent(this, SuccessActivity::class.java))
                 }
                 is SignInViewState.Error -> showError()
                 is SignInViewState.Loading -> showLoading()
             }
         })
+    }
+
+    private fun sendTextFromInput() {
+        val isAValidEmail =
+            android.util.Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString())
+                .matches()
+        val userPassword = binding.inputPassword.text.toString()
+
+        viewModel.verifyInputValues(
+            isValidInputtedEmail = isAValidEmail,
+            userInputtedPassword = userPassword
+        )
     }
 
     private fun showLoading() {
@@ -70,7 +85,7 @@ class SignInActivity : AppCompatActivity() {
         binding.loadingView.isVisible = false
     }
 
-    private fun sendErrorMessage(errorMessage: String) {
+    private fun sendInvalidEmailMessage(errorMessage: String) {
         binding.signinButton.isEnabled = false
         binding.inputEmail.error = errorMessage
     }
@@ -81,30 +96,14 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        binding.signupButton.setOnClickListener { viewModel.onSignUpClick() }
         binding.signinButton.setOnClickListener { viewModel.onLoginClick() }
+        binding.signupButton.setOnClickListener { viewModel.onRegisterClick() }
     }
 
-
-
-    private val textWatcher = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-        override fun afterTextChanged(p0: Editable?) {
-            val userEmail =
-                android.util.Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString())
-                    .matches()
-            viewModel.verifyInputValues(
-                isValidInputtedEmail = userEmail,
-                userInputtedPassword = binding.inputPassword.text.toString()
-            )
-        }
-    }
 
     companion object {
         fun intent(context: Context) = Intent(context, SignInActivity::class.java)
     }
+
 
 }

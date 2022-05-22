@@ -1,11 +1,12 @@
-package com.estudos.signupsignin
+package com.estudos.signupsignin.success.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.estudos.signupsignin.R
 
-class TesteActivity : AppCompatActivity() {
+class SuccessActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_teste)
+        setContentView(R.layout.activity_success)
     }
 }

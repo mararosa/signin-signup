@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Signupsignin">
         <activity
-            android:name=".TesteActivity"
+            android:name=".success.view.SuccessActivity"
             android:exported="false" />
         <activity
             android:name=".signin.view.SignInActivity"
@@ -24,7 +24,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".signup.view.SignUpActivity" />
+        <activity
+            android:name=".signup.view.SignUpActivity"
+            android:parentActivityName=".signin.view.SignInActivity"
+            android:theme="@style/Theme.Signupsignin.NoActionBar"
+            android:label="Sign Up"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
