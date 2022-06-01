@@ -86,4 +86,7 @@ dependencies {
     kapt 'com.google.dagger:dagger-android-processor:2.26'
     kapt 'com.google.dagger:dagger-compiler:2.26'
 
+    // Adicionar dependência da biblioteca Annotations Support
+    implementation 'com.android.support:support-annotations:28.0.0'
+
 }
