@@ -21,7 +21,7 @@ class SignUpViewModel(
 
     fun verifyInputValues(userValues: SignUpValues) {
         val isEmptyFields = verifyEmptyFields(userValues)
-        val isAValidEmail = verifiyEmail(userValues.isAValidEmail)
+        val isAValidEmail = verifyEmail(userValues.isAValidEmail)
         val isAValidPassword = verifyPassword(
             userPassword = userValues.password,
             userConfirmPassword = userValues.confirmPassword
@@ -34,7 +34,7 @@ class SignUpViewModel(
         return values.name.isNotEmpty() && values.lastName.isNotEmpty() && values.email.isNotEmpty() && values.phoneNumber.isNotEmpty() && values.password.isNotEmpty() && values.confirmPassword.isNotEmpty()
     }
 
-    private fun verifiyEmail(isAValidEmail: Boolean): Boolean {
+    private fun verifyEmail(isAValidEmail: Boolean): Boolean {
         return if (isAValidEmail) {
             true
         } else {
@@ -45,7 +45,7 @@ class SignUpViewModel(
     }
 
     private fun verifyPassword(userPassword: String, userConfirmPassword: String): Boolean {
-        return (userPassword.length >= MINIMUM_PASSOWORD_LENGTH && userPassword == userConfirmPassword)
+        return (userPassword.length >= MINIMUM_PASSWORD_LENGTH && userPassword == userConfirmPassword)
     }
 
     fun onRegisterClick(request: RegisterUserInfoRequest) {
@@ -71,7 +71,7 @@ class SignUpViewModel(
     }
 
     private companion object {
-        private const val MINIMUM_PASSOWORD_LENGTH = 8
+        private const val MINIMUM_PASSWORD_LENGTH = 8
     }
 
 }
