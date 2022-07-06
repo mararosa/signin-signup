@@ -3,8 +3,18 @@ package com.estudos.signupsignin.signup.viewmodel
 import SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.estudos.signupsignin.R
+import com.estudos.signupsignin.signup.data.request.RegisterUserInfoRequest
+import com.estudos.signupsignin.signup.domain.SignUpInteractor
+import io.reactivex.Scheduler
+import io.reactivex.disposables.CompositeDisposable
 
-class SignUpViewModel : ViewModel() {
+class SignUpViewModel(
+    private val interactor: SignUpInteractor,
+    private val scheduler: Scheduler,
+    private val androidScheduler: Scheduler
+) : ViewModel() {
+    private val disposable = CompositeDisposable()
 
     val viewStateLiveData = MutableLiveData<SignUpViewState>()
     val commandLiveData = SingleLiveEvent<SignUpCommand>()
@@ -17,17 +27,11 @@ class SignUpViewModel : ViewModel() {
             userConfirmPassword = userValues.confirmPassword
         )
         commandLiveData.value =
-            SignUpCommand.ChangeButtonState(
-                isEmptyFields
-                        && isAValidEmail
-                        && isAValidPassword
-            )
+            SignUpCommand.ChangeButtonState(isEmptyFields && isAValidEmail && isAValidPassword)
     }
 
     private fun verifyEmptyFields(values: SignUpValues): Boolean {
-        return values.name.isNotEmpty() && values.lastName.isNotEmpty()
-                && values.email.isNotEmpty() && values.phoneNumber.isNotEmpty()
-                && values.password.isNotEmpty() && values.confirmPassword.isNotEmpty()
+        return values.name.isNotEmpty() && values.lastName.isNotEmpty() && values.email.isNotEmpty() && values.phoneNumber.isNotEmpty() && values.password.isNotEmpty() && values.confirmPassword.isNotEmpty()
     }
 
     private fun verifiyEmail(isAValidEmail: Boolean): Boolean {

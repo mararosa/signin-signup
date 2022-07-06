@@ -1,8 +1,6 @@
-package com.estudos.signupsignin.domain
+package com.estudos.signupsignin.signin.domain
 
 import com.estudos.signupsignin.signin.data.SignInRepository
-import com.estudos.signupsignin.signin.domain.SignInInteractor
-import com.estudos.signupsignin.signin.domain.SignInInteractorImpl
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
